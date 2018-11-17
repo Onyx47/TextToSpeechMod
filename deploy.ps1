@@ -12,6 +12,7 @@ $outputfolder = "texttospeechmod"
 $projectfile = "SE TextToSpeechMod.csproj"
 $forwardslashchar = "\"
 $excludes = @('.git', 'bin', '.vs', '.vscode', 'obj', 'Properties', "phonemes", "mirrored workshop build", "Logging", 'documentation')
+$excludefiles = @('OptionalDebugger.cs')
 
 if ($outputdir.EndsWith("\"))
 {
@@ -74,7 +75,7 @@ Write-Host "overwriting with fresh script files..."
 function copyacrossallincludedscripts([string]$currentdirectory, [string]$currentdestination)
 {   
     Write-Host $("traversing directory: " + $currentdirectory)   
-    $currentfiles = Get-ChildItem -Path $($currentdirectory + "\*") -Include '*.cs' -File
+    $currentfiles = Get-ChildItem -Path $($currentdirectory + "\*") -Include '*.cs' -File -Exclude $excludefiles
     $currentsubdirs = Get-ChildItem -Path $currentdirectory -Directory -Exclude $excludes     
 
     foreach ($item in $currentfiles)
