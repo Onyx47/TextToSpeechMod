@@ -10,7 +10,7 @@ namespace SETextToSpeechMod.Processing
     {
         public char this[int index]
         {
-            get => sentenceValue[index];
+            get { return sentenceValue[index]; }
         }
         private string sentenceValue;
 
