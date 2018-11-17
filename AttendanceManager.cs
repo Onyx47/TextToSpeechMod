@@ -7,7 +7,7 @@ namespace SETextToSpeechMod
 {
     public class AttendanceManager
     {   
-        private List <IMyPlayer> playersField = new List <IMyPlayer>();      
+        private static List <IMyPlayer> playersField = new List <IMyPlayer>();      
         public IList <IMyPlayer> Players
         {
             get
@@ -84,6 +84,7 @@ namespace SETextToSpeechMod
 
         public static void UpdatePlayers()
         {
+            AttendanceManager m = AttendanceManager.GetSingleton();
             playersField.Clear(); //GetPlayers() just adds without overwriting so list must be cleared every time.
 
             if (OutputManager.IsDebugging == false)
@@ -92,14 +93,14 @@ namespace SETextToSpeechMod
 
                 for (int i = 0; i < playersField.Count; i++)
                 {
-                    if (muteStatusesField.ContainsKey (playersField[i].DisplayName) == false)
+                    if (m.muteStatusesField.ContainsKey (playersField[i].DisplayName) == false)
                     {
-                        muteStatusesField.Add (playersField[i].DisplayName, new bool());                            
+                        m.muteStatusesField.Add (playersField[i].DisplayName, new bool());                            
                     }
 
                     if (playersField[i].SteamUserId == MyAPIGateway.Multiplayer.MyId)
                     {
-                        LocalPlayer = playersField[i]; 
+                        m.LocalPlayer = playersField[i]; 
                     }
                 }
             }    
