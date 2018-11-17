@@ -2,13 +2,10 @@
 #1. place in the root directory of the text to speech mod project
 #2. open a command shell
 #3. change the shell's directory to the project's root directory, using a "cd" command.
-#4. enter the name of this script in the shell.
-#5. follow the prompts.
-#6. profit!
+#4. profit!
 
 $ErrorActionPreference = "stop"
 
-#$outputdir = Read-Host -Prompt "Enter an absolute path to the Space Engineers mod directory "
 $outputdir = $env:APPDATA + "\SpaceEngineers\Mods"
 $inputdir = "./mirrored workshop build"
 $outputfolder = "texttospeechmod"
@@ -41,7 +38,7 @@ Write-Host "deploying text to speech mod..."
 $scriptdir = $outputfolder + "Data/Scripts/folder required here" + $forwardslashchar
 
 Write-Host "building the project..."
-$projectbuilt = Invoke-Expression $("MSBuild.exe '" + $projectfile + "' -nologo -verbosity:minimal")
+Invoke-Expression $("MSBuild.exe '" + $projectfile + "' -nologo -verbosity:minimal")
 
 if ($LASTEXITCODE -ne 0)
 {
@@ -86,14 +83,14 @@ function copyacrossallincludedscripts([string]$currentdirectory, [string]$curren
         
         Try
         {
-            $currentdestinationexists = Get-Item -Path $currentdestination
+            Get-Item -Path $currentdestination
         }
 
         Catch
         {
-            $newdestinationcreated = New-Item -Path $currentdestination -ItemType 'directory'
+            New-Item -Path $currentdestination -ItemType 'directory'
         }
-        $scripcopied = Copy-Item $item.FullName -Destination $currentdestination -Force    
+        Copy-Item $item.FullName -Destination $currentdestination -Force    
     }
 
     foreach ($subdir in $currentsubdirs)
