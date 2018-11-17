@@ -8,12 +8,13 @@
 
 $ErrorActionPreference = "stop"
 
-$outputdir = Read-Host -Prompt "Enter an absolute path to the Space Engineers mod directory "
+#$outputdir = Read-Host -Prompt "Enter an absolute path to the Space Engineers mod directory "
+$outputdir = $env:APPDATA + "\SpaceEngineers\Mods"
 $inputdir = "./mirrored workshop build"
 $outputfolder = "texttospeechmod"
 $projectfile = "SE TextToSpeechMod.csproj"
 $forwardslashchar = "\"
-$excludes = @('.git', 'bin', '.vs', '.vscode', 'obj', 'Properties', "phonemes", "mirrored workshop build", "Logging", 'documentation', "OptionalDebugger.cs")
+$excludes = @('.git', 'bin', '.vs', '.vscode', 'obj', 'Properties', "phonemes", "mirrored workshop build", "Logging", 'documentation')
 
 if ($outputdir.EndsWith("\"))
 {
@@ -58,17 +59,16 @@ foreach($item in $mirrorfoldersitems)
 {
     Try
     {
-        if($item -is [System.IO.DirectoryInfo])
-        {
-            $destinationexistsobj = Get-Item -Path $outputfolder
-        }        
+        Write-Host "Copying:" $item.FullName "to" $outputfolder
+        Copy-Item $item.FullName -Destination $outputfolder -Recurse -Container -Force        
     }
-
     Catch
     {
-        $outputdestinationcreated = New-Item -Path $item.FullName -ItemType 'directory' -Force
+        $outputdestinationcreated = New-Item -Path $outputfolder -ItemType 'directory' -Force
+        Write-Host "Copying:" $item.FullName "to" $outputdestinationcreated
+        Copy-Item $item.FullName -Destination $outputdestinationcreated -Recurse -Container -Force
     }
-    $mirroredfoldercopied = Copy-Item $item.FullName -Destination $outputfolder -Recurse -Force
+    
 }
 Write-Host "mirror directory copied."
 
