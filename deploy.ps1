@@ -13,7 +13,7 @@ $inputdir = "./mirrored workshop build"
 $outputfolder = "texttospeechmod"
 $projectfile = "SE TextToSpeechMod.csproj"
 $forwardslashchar = "\"
-$excludes = @('.git', 'bin', '.vs', '.vscode', 'obj', 'Properties', "phonemes", "mirrored workshop build", "Logging", 'documentation')
+$excludes = @('.git', 'bin', '.vs', '.vscode', 'obj', 'Properties', "phonemes", "mirrored workshop build", "Logging", 'documentation', "OptionalDebugger.cs")
 
 if ($outputdir.EndsWith("\"))
 {
