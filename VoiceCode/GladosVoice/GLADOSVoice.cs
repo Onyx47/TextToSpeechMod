@@ -12,7 +12,7 @@ namespace SETextToSpeechMod
         {
             get
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException();
             }
         }
 
@@ -20,7 +20,7 @@ namespace SETextToSpeechMod
         {
             get
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException();
             }
         }
 
@@ -28,7 +28,7 @@ namespace SETextToSpeechMod
         {
             get
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException();
             }
         }
     } 

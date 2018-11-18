@@ -49,10 +49,10 @@ namespace SETextToSpeechMod
         /// <summary>
         /// do not use. Not implemented.
         /// </summary>
-        /// <exception cref="NotImplementedException">throws</exception>
+        /// <exception cref="InvalidOperationException">throws</exception>
         public void Dispose()
         {
-            throw new NotImplementedException(" dispose not implemented.");
+            throw new InvalidOperationException(" dispose not implemented.");
         }
 
         /// <summary>

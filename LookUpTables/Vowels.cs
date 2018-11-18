@@ -24,6 +24,6 @@ namespace SETextToSpeechMod.LookUpTables
             PrettyScaryDictionary.OWE,
             PrettyScaryDictionary.UHH,
         };
-        public static readonly ReadOnlyCollection <string> TABLE = new ReadOnlyCollection <string> (table); //static properties must be declared after their dependencies. else, will crash on startup.
+        public static readonly List <string> TABLE = new List <string> (table); //static properties must be declared after their dependencies. else, will crash on startup.
     }
 }
