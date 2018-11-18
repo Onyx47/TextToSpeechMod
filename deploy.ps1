@@ -57,13 +57,13 @@ foreach($item in $mirrorfoldersitems)
 {
     Try
     {
+        Copy-Item $item.FullName -Destination $outputfolder/$item -Recurse -Container -Force        
         Write-Host "Copying:" $item.FullName "to" $outputfolder
-        Copy-Item $item.FullName -Destination $outputfolder -Recurse -Container -Force        
     }
     Catch
     {
         $outputdestinationcreated = New-Item -Path $outputfolder -ItemType 'directory' -Force
-        Write-Host "Copying:" $item.FullName "to" $outputdestinationcreated
+        Write-Host "Copying:" $item.FullName "to new directory" $outputdestinationcreated
         Copy-Item $item.FullName -Destination $outputdestinationcreated -Recurse -Container -Force
     }
     
