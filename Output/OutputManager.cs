@@ -1,4 +1,5 @@
-﻿using SETextToSpeechMod.Output;
+﻿using Sandbox.ModAPI;
+using SETextToSpeechMod.Output;
 using SETextToSpeechMod.Processing;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace SETextToSpeechMod
 
         private readonly List <SpeechTask> speechesField = new List <SpeechTask>();
         private SoundPlayer soundPlayerRef;
-        TaskFactory taskFactory = new TaskFactory(); 
+        //TaskFactory taskFactory = new TaskFactory(); 
         private AttendanceManager attendanceManager = AttendanceManager.GetSingleton();
 
         public static bool IsDebugging { get; private set;}
@@ -94,24 +95,24 @@ namespace SETextToSpeechMod
                 int lastIndex = Speeches.Count - 1;
                 int tasksCompleted = 0;
 
-                Parallel.For(0, lastIndex, (index) => {
-                    if (Speeches[index].Worker.HasAnOrder)
+                MyAPIGateway.Parallel.For(0, lastIndex, (index) => {
+                    if (Speeches[(int)index].Worker.HasAnOrder)
                     {
                         IsProcessingOutputs = true;
 
-                        if (Speeches[index].ReturnInfo.Status == TaskStatus.Created) //assuming async calls have matching length to Speeches
-                        {                                                
-                            taskFactory.StartNew (() => {                             
+                        //if (Speeches[(int)index].ReturnInfo.Status == TaskStatus.Created) //assuming async calls have matching length to Speeches
+                        //{                                                
+                            //taskFactory.StartNew (() => {                             
                                     Speeches[index].Run(); //fixed bug where there was a single returned task from all speeches.
-                                }, 
-                                Speeches[index].TaskCanceller.Token
-                            );                            
-                        }
+                                //}, 
+                                //Speeches[index].TaskCanceller.Token
+                            //);                            
+                        //}
 
-                        else if(Speeches[index].ReturnInfo.Status == TaskStatus.RanToCompletion)
-                        {
+                        //else if(Speeches[index].ReturnInfo.Status == TaskStatus.RanToCompletion)
+                        //{
                             tasksCompleted++;
-                        }
+                        //}
                         SetSoundTimer();
                     }
 

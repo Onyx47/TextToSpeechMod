@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SETextToSpeechMod.Processing;
-using System.Threading.Tasks;
+using Sandbox.ModAPI;
 
 namespace SETextToSpeechMod
 {   
@@ -75,18 +75,15 @@ namespace SETextToSpeechMod
         }
 
         //this function will extract what phonemes it can from the sentence and save performance by taking its sweet time.
-        public async Task RunAsync()
+        public void RunAsync()
         {                     
             if (HasAnOrder &&
                 IsBusy == false) //prevent factory from being spammed; one run per order.
             {
                 IsBusy = true;
 
-                await Task.Run (() => { 
-                    for (int i = 0; i < sentence.Length; i++)
-                    {
-                        AddPhonemes (i);
-                    }
+                MyAPIGateway.Parallel.For(0, sentence.Length, (i) => { 
+                    AddPhonemes (i);
                 });
                 soundPlayerRef.PlaySentence (timelinesField);
                 IsBusy = false;

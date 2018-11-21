@@ -1,4 +1,5 @@
-﻿using SETextToSpeechMod.Processing;
+﻿using Sandbox.ModAPI;
+using SETextToSpeechMod.Processing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,29 +20,30 @@ namespace SETextToSpeechMod.Output
         /// Generating Object which is the primary focus of a SpeechTask.
         /// </summary>
         public TimelineFactory Worker { get; private set;}
-        public Task ReturnInfo { get; private set;}
+        //public Task ReturnInfo { get; private set;}
 
         /// <summary>
         /// This is an unmanaged object type and, when finished with, must be explicitly disposed using SpeechTask.Dispose()
         /// Same deal if you cancel this token once. One instance per cancel call and dispose before reinstantiating.
         /// </summary>
-        public CancellationTokenSource TaskCanceller { get; private set;}
+        //public CancellationTokenSource TaskCanceller { get; private set;}
 
         public SpeechTask (TimelineFactory itsSpeech)
         {
             Worker = itsSpeech;
-            ReturnInfo = new Task (() => {return;}); 
-            TaskCanceller = new CancellationTokenSource();
+            //ReturnInfo = new MyAPIGateway.Parallel.  (() => {return;}); 
+            //TaskCanceller = new CancellationTokenSource();
         }
 
         public void Run()
         {
-            ReturnInfo = Worker.RunAsync();
+            //ReturnInfo = Worker.RunAsync();
+            Worker.RunAsync();
         }
 
         public void FactoryReset (Sentence inputSentence)
         {
-            TaskCanceller.Cancel();
+            //TaskCanceller.Cancel();
             RenewCancellationSource();
             Worker.FactoryReset (inputSentence); //reuses instances of sentencefactory instead of instantiating every new sentence.                
         }
@@ -52,7 +54,7 @@ namespace SETextToSpeechMod.Output
         public void RenewCancellationSource()
         {
             Dispose();
-            TaskCanceller = new CancellationTokenSource();
+            //TaskCanceller = new CancellationTokenSource();
         }
        
         public void Dispose()
@@ -60,8 +62,8 @@ namespace SETextToSpeechMod.Output
             if(IsDisposed == false)
             {
                 IsDisposed = true;
-                TaskCanceller.Cancel();
-                TaskCanceller.Dispose();
+                //TaskCanceller.Cancel();
+                //TaskCanceller.Dispose();
             }
         }
     }

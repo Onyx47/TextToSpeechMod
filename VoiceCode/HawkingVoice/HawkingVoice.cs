@@ -2,7 +2,7 @@
 using SETextToSpeechMod.Processing;
 using SETextToSpeechMod.VoiceCode.HawkingVoice;
 
-﻿namespace SETextToSpeechMod.VoiceCode.HawkingVoice
+namespace SETextToSpeechMod.VoiceCode.HawkingVoice
 {
     public sealed class HawkingVoice : TimelineFactory
     {     
